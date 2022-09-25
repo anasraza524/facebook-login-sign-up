@@ -1,6 +1,7 @@
  import { useFormik } from 'formik';
  import * as yup from 'yup';
-import './form.css'
+ import {Link} from "react-router-dom";
+import './login.css'
 
  function login (){
 
@@ -25,7 +26,12 @@ import './form.css'
         },
       });
       return (
-        <div className="App">
+        <div class="box">
+  <div class="title-box">
+    <img src="https://i.postimg.cc/NMyj90t9/logo.png" alt="Facebook"/>
+    <p>Facebook helps you connect and share with the people in your life.</p>
+  </div>
+  <div class="form-box">
           
           <form onSubmit={formik.handleSubmit}>
             <input
@@ -62,10 +68,35 @@ import './form.css'
             }
             <br/>
             <button color="primary" variant="contained" fullWidth type="submit">
-              Submit
+            Log In
             </button>
+            <Link to="/">Forgotten Password</Link>
           </form>
         </div>
+        
+
+        <hr/>
+    <div class="create-btn">
+      <Link to="/" target="_blank">Create New Account</Link>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+    // <form action="/">
+    //   <input type="text" placeholder="Email address or phone number"/>
+    //   <input type="password" placeholder="Password"/>
+    //   <button type="submit">Log In</button>
+    //   <Link to="/">Forgotten Password</Link>
+    // </form>
+    
+        
+
       );
  }
 
