@@ -1,6 +1,33 @@
 import './signup.css'
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+function From(){
+  const validationSchema= yup.object({
+    email: yup
+      .string('Enter your email')
+      .email('Enter a valid email')
+      .required('Email is required'),
+    password: yup
+      .string('Enter your password')
+      .min(8, 'Password should be of minimum 8 characters length')
+      .required('Password is required'),
+      confirm_password: yup
+      .label('confirm password').required("confirm Password is required")
+      .oneOf([yup.ref('password'), null],
+       'Passwords must match'),
+  
+  })
+    const formik = useFormik({
+        initialValues: {
+          email: '',
+          password: '',
+        },
+       validationSchema: validationSchema,
+        onSubmit: (values) => {
+          console.log("values" ,values);
+        },
+      });
 
-function from(){
 return(
 
 <body>
@@ -29,18 +56,56 @@ return(
   <div className="signup_body">
     <p className="acc_crt">Create an account</p>
     <p className="free_hint">It's free and always will be.</p>
-    <form className="signup_form">
+    <form onSubmit={formik.handleSubmit} className="signup_form">
       <div>
         
         <input className="firstname" type="text" name="" placeholder="First name"/>
         
         <input className="lastname" type="text" name="" placeholder="Last name"/>
         
-        <input className="email" type="text" name="" placeholder="Mobile number or Email"/>
+           <input
+           placeholder="Email address or phone number"
+                    id="email"
+             name="email"
+             label="Email"
+             value={formik.values.email}
+             onChange={formik.handleChange}
+             className="email"
+           />
+        <br/>
+            {(formik.touched.email && Boolean(formik.errors.email))?
+            <span style={{color:"red" }}>{formik.errors.email}</span>
+          :null }
+        {/* <input className="email" type="text" name="" placeholder="Mobile number or Email"/> */}
+        <input
+               placeholder="Password"
+              id="password"
+              name="password"
+              label="Password"
+              type="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              className="password"
+             
+            />
+            <br/>
+            {(formik.touched.password && Boolean(formik.errors.password))?
+            <span style={{color:"red"}}>{formik.errors.password} </span>
+            : null
+            }        
+        {/* <input className="password" type="password" name="" placeholder="Password"/> */}
         
-        <input className="password" type="password" name="" placeholder="Password"/>
-        
-        <input className="password2" type="password" name="" placeholder="Confirm password"/>
+        <input
+         className="password2"
+          type="confirm_password" 
+           name="confirm_password"
+            placeholder="Confirm password"/>
+
+<br/>
+            {(formik.touched.confirm_password && Boolean(formik.errors.confirm_password))?
+            <span style={{color:"red"}}>{formik.errors.confirm_password} </span>
+            : null
+            }   
       </div>
       <p className="birthday">Birthday</p>
       
@@ -101,4 +166,4 @@ return(
 
 
 }
-export default from;
+export default From;

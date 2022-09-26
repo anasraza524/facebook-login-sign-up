@@ -27,10 +27,10 @@ import './login.css'
       });
       return (
         <div className="box">
-   {/* <div className="title-box">
+    <div className="title-box">
     <img src="https://i.postimg.cc/NMyj90t9/logo.png" alt="Facebook"/>
     <p>Facebook helps you connect and share with the people in your life.</p>
-  </div> */}
+  </div> 
   <div className="form-box">
           
           <form onSubmit={formik.handleSubmit}>
@@ -45,7 +45,7 @@ import './login.css'
             />
             <br/>
             {(formik.touched.email && Boolean(formik.errors.email))?
-            <span style={{color:"red"}}>{formik.errors.email}</span>
+            <span style={{color:"red" }}>{formik.errors.email}</span>
           :null }
             
             <br/>

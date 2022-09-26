@@ -14,11 +14,11 @@ return(
 
   <>
   <Nav/>
-<div className="box">
+{/* <div className="box">
    <div className="title-box">
     <img src="https://i.postimg.cc/NMyj90t9/logo.png" alt="Facebook"/>
     <p>Facebook helps you connect and share with the people in your life.</p>
-    </div>
+    </div> */}
     
 {/* <Nav/>
 <Login/> */}
@@ -28,15 +28,15 @@ return(
    
   
    <From/>
-    {/* <Routes>
+    <Routes>
           <Route path="From" element={<From/>} />
          
           
-        </Routes> */}
+        </Routes> 
  
   
     </Router>
     
-    </div>  </>)}
+      </>)}
 
 export default App;
