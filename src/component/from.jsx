@@ -4,9 +4,9 @@ function from(){
 return(
 
 <body>
-  <nav className="navbar">
+ {/* <nav className="navbar">
     <img className="logo" src="fb.png"/>
-    {/* <form className="login_form">
+     <form className="login_form">
       <div className="email">
         <div className="font">Email or Phone</div>
         <input type="text" name=""/>
@@ -16,10 +16,10 @@ return(
         <input type="password" name=""/>
       </div>
       <button className="login_btn">Login</button>
-    </form> */}
-  </nav>
+    </form> 
+  </nav>*/}
 
-  <section>
+ 
     {/* <div className="logo_body">
   <img className="logobdy" src="fbbdy.png"/>
   <p className="like_font font1">Thanks for stopping by!</p>
@@ -31,14 +31,22 @@ return(
     <p className="free_hint">It's free and always will be.</p>
     <form className="signup_form">
       <div>
+        
         <input className="firstname" type="text" name="" placeholder="First name"/>
+        
         <input className="lastname" type="text" name="" placeholder="Last name"/>
+        
         <input className="email" type="text" name="" placeholder="Mobile number or Email"/>
+        
         <input className="password" type="password" name="" placeholder="Password"/>
+        
         <input className="password2" type="password" name="" placeholder="Confirm password"/>
       </div>
       <p className="birthday">Birthday</p>
-      <div className="birth_date">
+      
+      <input className='dateOfbirth' type="date" /> 
+    
+    <div className="birth_date"> 
         
       {/* <select className="month">
          <option>Month</option><option>Jan</option><option>Feb</option><option>Mar</option>
@@ -66,16 +74,19 @@ return(
          <option>2002</option><option>2003</option><option>2004</option><option>2005</option>
          <option>2006</option><option>2007</option><option>2008</option>
        </select> */}
-       <input type="date" /> 
-       <p className="brth_hint"><a href="#">Why do i need to provide my date of birth?</a></p>
        
-      </div>
-
+       {/* <p className="brth_hint"><a href="#">Why do i need to provide my date of birth?</a></p> */}
+       
+     </div> 
+<label htmlFor="gender">Male</label>
+      
       <input type="radio" name="gender" value="male"/>
+      
+      <label htmlFor="gender">Female</label>
+      
       <input type="radio" name="gender" value="female"/>
 
-      <p className="font">Male</p>
-      <p className="font font2">Female</p>
+    
       <p className="agreement">By clicking Sign Up, you agree to our <a href="#">Terms, Data Policy and Cookies Policy.</a> You may receive SMS Notifications from us and can opt out any time.</p>
 
       <button className="signup">Sign Up</button>
@@ -83,7 +94,7 @@ return(
     </form>
   </div>
 
-  </section>
+
 
 </body>
 )
