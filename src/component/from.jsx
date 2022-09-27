@@ -9,9 +9,13 @@ function From(){
       .required('Email is required'),
     password: yup
       .string('Enter your password')
-      .min(8, 'Password should be of minimum 8 characters length')
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{5,})/,
+        "Must Contain 5 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+      )
       .required('Password is required'),
       confirm_password: yup
+      .string('Enter your password')
       .label('confirm password').required("confirm Password is required")
       .oneOf([yup.ref('password'), null],
        'Passwords must match'),
@@ -21,6 +25,7 @@ function From(){
         initialValues: {
           email: '',
           password: '',
+          confirm_password:'',
         },
        validationSchema: validationSchema,
         onSubmit: (values) => {
@@ -76,7 +81,9 @@ return(
             {(formik.touched.email && Boolean(formik.errors.email))?
             <span style={{color:"red" }}>{formik.errors.email}</span>
           :null }
+        
         {/* <input className="email" type="text" name="" placeholder="Mobile number or Email"/> */}
+        <br/>
         <input
                placeholder="Password"
               id="password"
@@ -94,12 +101,15 @@ return(
             : null
             }        
         {/* <input className="password" type="password" name="" placeholder="Password"/> */}
-        
+        <br/>
         <input
          className="password2"
-          type="confirm_password" 
+          type="password" 
            name="confirm_password"
-            placeholder="Confirm password"/>
+           label="confirm_password"
+            placeholder="Confirm password"
+            value={formik.values.confirm_password}
+            onChange={formik.handleChange}/>
 
 <br/>
             {(formik.touched.confirm_password && Boolean(formik.errors.confirm_password))?
