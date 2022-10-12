@@ -11,7 +11,7 @@ import './login.css'
       .required('Email is required'),
     password: yup
       .string('Enter your password')
-      .min(8, 'Password should be of minimum 8 characters length')
+      // .min(8, 'Password should be of minimum 8 characters length')
       .required('Password is required'),
   
   })
@@ -65,7 +65,7 @@ import './login.css'
             <span style={{color:"red"}}>{formik.errors.password} </span>
             : null
             }
-            <br/>
+            <br/><br/>
             <button color="primary" variant="contained" fullWidth type="submit">
             Log In
             </button>
@@ -76,7 +76,7 @@ import './login.css'
 
         <hr/>
     <div className="create-btn">
-      <Link to="./Form" >Create New Account</Link>
+      <Link to="/from" >Create New Account</Link>
     </div>
   </div>
 </div>

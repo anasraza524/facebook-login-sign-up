@@ -1,8 +1,16 @@
 import './signup.css'
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import {Link} from "react-router-dom";
 function From(){
   const validationSchema= yup.object({
+    firstname: yup
+    .string('Enter your First name')
+    .required('First name is required'),
+    lastname: yup
+    .string('Enter your Last name')
+    .required('Last name is required'),
+
     email: yup
       .string('Enter your email')
       .email('Enter a valid email')
@@ -23,6 +31,8 @@ function From(){
   })
     const formik = useFormik({
         initialValues: {
+          firstname:'',
+          lastname:'',
           email: '',
           password: '',
           confirm_password:'',
@@ -64,10 +74,30 @@ return(
     <form onSubmit={formik.handleSubmit} className="signup_form">
       <div>
         
-        <input className="firstname" type="text" name="" placeholder="First name"/>
-        
-        <input className="lastname" type="text" name="" placeholder="Last name"/>
-        
+        <input
+         className="firstname"
+          type="text"
+           name="firstname"
+           value={formik.values.firstname}
+             onChange={formik.handleChange}
+           placeholder="First name"/>
+         
+         
+         
+        <input className="lastname"
+         type="text"
+          name="lastname"
+          value={formik.values.lastname}
+             onChange={formik.handleChange}
+           placeholder="Last name"/>
+           <br />
+           {(formik.touched.firstname && Boolean(formik.errors.firstname))?
+            <span style={{color:"red",marginRight:"65px" }}>{formik.errors.firstname}</span>
+          :null }
+         {(formik.touched.lastname && Boolean(formik.errors.lastname))?
+            <span style={{color:"red" }}>{formik.errors.lastname}</span>
+          :null }
+         
            <input
            placeholder="Email address or phone number"
                     id="email"
@@ -164,7 +194,8 @@ return(
     
       <p className="agreement">By clicking Sign Up, you agree to our <a href="#">Terms, Data Policy and Cookies Policy.</a> You may receive SMS Notifications from us and can opt out any time.</p>
 
-      <button className="signup">Sign Up</button>
+<Link className="linkToLogin" to="/login">Already have an account</Link>
+<br />      <button className="signup">Sign Up</button>
       
     </form>
   </div>
