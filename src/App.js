@@ -1,4 +1,4 @@
- import Login from './component/login'
+import Login from './component/login'
 // import Signup from './component/signup'
 import From from './component/from'
 import Nav from './component/navBar'
@@ -29,8 +29,9 @@ return(
   
   
     <Routes>
+    <Route path="Login" element={<Login/>}/>
           <Route path="From" element={<From/>} />
-          <Route path="Login" element={<Login/>}/>
+          <Route index  element={<Login/>}/>
           
         </Routes> 
  
