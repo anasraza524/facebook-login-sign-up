@@ -6,8 +6,16 @@ import { useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 function From(){
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  // const [email, setEmail] = useState('')
+  // const [password, setPassword] = useState('')
+
+
+  // const handleEmailChange =(e) =>{
+  //   setEmail(e.currentTarget.value)
+  // }
+  // const handlePasswordChange =(e) =>{
+  //   setPassword(e.currentTarget.value)
+  // }
   const validationSchema= yup.object({
     firstname: yup
     .string('Enter your First name')
@@ -47,7 +55,7 @@ function From(){
           console.log("values" ,values);
 
           const auth = getAuth();
-createUserWithEmailAndPassword(auth, email, password)
+createUserWithEmailAndPassword(auth, formik.values.email, formik.values.password)
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
@@ -124,10 +132,7 @@ return(
              name="email"
              label="Email"
              value={formik.values.email}
-             onChange={(e)=>{
-              setEmail(e.target.value)
-            // formik.handleChange
-            }}
+             onChange={formik.handleChange} 
              className="email"
            />
         <br/>
@@ -144,10 +149,9 @@ return(
               label="Password"
               type="password"
               value={formik.values.password}
-              onChange={(e)=>{
-                setPassword(e.target.value)
-                // formik.handleChange
-              }}
+              onChange={
+                formik.handleChange
+              }
               className="password"
              
             />
