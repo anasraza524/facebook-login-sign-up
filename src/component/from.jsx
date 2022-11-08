@@ -2,7 +2,12 @@ import './signup.css'
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import {Link} from "react-router-dom";
+import { useState } from 'react';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 function From(){
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const validationSchema= yup.object({
     firstname: yup
     .string('Enter your First name')
@@ -18,8 +23,8 @@ function From(){
     password: yup
       .string('Enter your password')
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{5,})/,
-        "Must Contain 5 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+        // /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{5,})/,
+        // "Must Contain 5 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
       )
       .required('Password is required'),
       confirm_password: yup
@@ -40,6 +45,21 @@ function From(){
        validationSchema: validationSchema,
         onSubmit: (values) => {
           console.log("values" ,values);
+
+          const auth = getAuth();
+createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    console.log("user",user)
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log("Sign up:",error)
+    // ..
+  });
         },
       });
 
@@ -104,7 +124,10 @@ return(
              name="email"
              label="Email"
              value={formik.values.email}
-             onChange={formik.handleChange}
+             onChange={(e)=>{
+              setEmail(e.target.value)
+            // formik.handleChange
+            }}
              className="email"
            />
         <br/>
@@ -121,7 +144,10 @@ return(
               label="Password"
               type="password"
               value={formik.values.password}
-              onChange={formik.handleChange}
+              onChange={(e)=>{
+                setPassword(e.target.value)
+                // formik.handleChange
+              }}
               className="password"
              
             />
@@ -194,7 +220,7 @@ return(
     
       <p className="agreement">By clicking Sign Up, you agree to our <a href="#">Terms, Data Policy and Cookies Policy.</a> You may receive SMS Notifications from us and can opt out any time.</p>
 
-<Link className="linkToLogin" to="/login">Already have an account</Link>
+<Link className="linkToLogin" to="/">Already have an account</Link>
 <br />      <button className="signup">Sign Up</button>
       
     </form>

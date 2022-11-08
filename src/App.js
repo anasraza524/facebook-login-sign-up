@@ -3,13 +3,17 @@ import Login from './component/login'
 import From from './component/from'
 import Nav from './component/navBar'
 import './App.css';
+import Home from './component/Home';
+import { useState } from 'react';
 import {
-  BrowserRouter as Router,
+
   Routes,
   Route,
+  Navigate,
  
 } from "react-router-dom";
 function App() {
+  const [isLogin, setisLogin] = useState(false)
 return(
 
   <>
@@ -23,20 +27,18 @@ return(
 {/* <Nav/>
 <Login/> */}
 
-<Router>
    
-   
-  
-  
+   {(isLogin)?
+  <Home/>
+  :
     <Routes>
-    <Route path="Login" element={<Login/>}/>
-          <Route path="From" element={<From/>} />
-          <Route index  element={<Login/>}/>
-          
-        </Routes> 
+    <Route path="/" element={<Login/>}/>
+    <Route path="From" element={<From/>} />
+    <Route path="*" element={<Navigate to="/" replace={true} />} />    
+          </Routes> 
  
-  
-    </Router>
+}
+
     
       </>)}
 
