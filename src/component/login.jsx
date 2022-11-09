@@ -2,8 +2,16 @@
  import * as yup from 'yup';
  import {Link} from "react-router-dom";
 import './login.css'
+import { useState } from 'react';
+import { getAuth,
+   signInWithEmailAndPassword
+   ,onAuthStateChanged
+} from "firebase/auth";
+import {   } from "firebase/auth";
+function Login (){
 
- function Login (){
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const validationSchema= yup.object({
     email: yup
       .string('Enter your email')
@@ -22,7 +30,24 @@ import './login.css'
         },
        validationSchema: validationSchema,
         onSubmit: (values) => {
+          setEmail(values.email)
+        setPassword(values.password)
           console.log("values" ,values);
+
+          const auth = getAuth();
+          signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+              // Signed in 
+              const user = userCredential.user;
+              console.log('Login success',user)
+              // ...
+            })
+            .catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              console.log("error",error)
+            });
+
         },
       });
       return (

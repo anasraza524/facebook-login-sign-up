@@ -6,16 +6,16 @@ import { useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 function From(){
 
-  // const [email, setEmail] = useState('')
-  // const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
 
-  // const handleEmailChange =(e) =>{
-  //   setEmail(e.currentTarget.value)
-  // }
-  // const handlePasswordChange =(e) =>{
-  //   setPassword(e.currentTarget.value)
-  // }
+//   const handleEmailChange =(e) =>{
+//    setEmail(e.currentTarget.value)
+//  }
+//  const handlePasswordChange =(e) =>{
+//   setPassword(e.currentTarget.value)
+//  }
   const validationSchema= yup.object({
     firstname: yup
     .string('Enter your First name')
@@ -38,34 +38,46 @@ function From(){
       confirm_password: yup
       .string('Enter your password')
       .label('confirm password').required("confirm Password is required")
-      .oneOf([yup.ref('password'), null],
-       'Passwords must match'),
+      // .oneOf([yup.ref('password'), null],
+      //  'Passwords must match'),
   
   })
-    const formik = useFormik({
+    const formik = useFormik(
+      {
+       
+
         initialValues: {
           firstname:'',
           lastname:'',
-          email: '',
-          password: '',
+           email:  '',
+           password:'',
           confirm_password:'',
         },
+        
        validationSchema: validationSchema,
+       
         onSubmit: (values) => {
+          setEmail(values.email)
+        setPassword(values.password)
           console.log("values" ,values);
-
+          
           const auth = getAuth();
-createUserWithEmailAndPassword(auth, formik.values.email, formik.values.password)
+createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed in 
+
     const user = userCredential.user;
     console.log("user",user)
+   
     // ...
   })
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
+    console.log("errorMessage:",errorMessage)
     console.log("Sign up:",error)
+    console.log("Email",email)
+    console.log("password",password)
     // ..
   });
         },
@@ -131,8 +143,13 @@ return(
                     id="email"
              name="email"
              label="Email"
+            //  value={email}
+            //   onChange={(e)=>{
+            //     setEmail(e.target.value)
+            //   }
+            // }
              value={formik.values.email}
-             onChange={formik.handleChange} 
+              onChange={formik.handleChange} 
              className="email"
            />
         <br/>
@@ -148,6 +165,11 @@ return(
               name="password"
               label="Password"
               type="password"
+            //   value={password}
+            //   onChange={(e)=>{
+            //     setPassword(e.target.value)
+            //   }
+            // }
               value={formik.values.password}
               onChange={
                 formik.handleChange
@@ -169,7 +191,8 @@ return(
            label="confirm_password"
             placeholder="Confirm password"
             value={formik.values.confirm_password}
-            onChange={formik.handleChange}/>
+          onChange={formik.handleChange}
+            />
 
 <br/>
             {(formik.touched.confirm_password && Boolean(formik.errors.confirm_password))?
@@ -225,7 +248,7 @@ return(
       <p className="agreement">By clicking Sign Up, you agree to our <a href="#">Terms, Data Policy and Cookies Policy.</a> You may receive SMS Notifications from us and can opt out any time.</p>
 
 <Link className="linkToLogin" to="/">Already have an account</Link>
-<br />      <button className="signup">Sign Up</button>
+<br />      <button type='sumbit' className="signup">Sign Up</button>
       
     </form>
   </div>

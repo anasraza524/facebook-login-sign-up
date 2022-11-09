@@ -4,7 +4,8 @@ import From from './component/from'
 import Nav from './component/navBar'
 import './App.css';
 import Home from './component/Home';
-import { useState } from 'react';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useState,useEffect } from 'react';
 import {
 
   Routes,
@@ -14,6 +15,31 @@ import {
 } from "react-router-dom";
 function App() {
   const [isLogin, setisLogin] = useState(false)
+  useEffect(() => {
+    const auth = getAuth();
+  const Unsubscribe = onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      const uid = user.uid;
+      console.log('user',user)
+      setisLogin(true)
+      // ...
+    } else {
+      // User is signed out
+      // ...
+      setisLogin(false)
+    }
+  });
+  
+   return()=>{
+    console.log('cleanUp function')
+    Unsubscribe()
+   }
+   
+  }, [])
+  
+
 return(
 
   <>
